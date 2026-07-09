@@ -1,0 +1,43 @@
+plugins {
+    id 'java'
+    id 'io.qameta.allure' version '4.1.0'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation(
+            'com.codeborne:selenide:7.16.0',
+            'org.junit.jupiter:junit-jupiter:6.0.3',
+            'org.slf4j:slf4j-simple:2.0.17',
+            'com.github.javafaker:javafaker:1.0.2',
+            'io.qameta.allure:allure-selenide:2.33.0',
+            'io.qameta.allure:allure-selenide:2.35.3'
+    )
+}
+
+allure {
+    report {//секция репорта
+        version.set("2.44.0") //версия Allure Report
+    }
+}
+
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+    systemProperties(System.getProperties())
+
+    jvmArgs '-Djunit.jupiter.extensions.autodetection.enabled=true'
+
+    testLogging {
+        lifecycle {
+            events "started", "skipped", "failed", "standard_error", "standard_out"
+            exceptionFormat "short"
+        }
+    }
+}
