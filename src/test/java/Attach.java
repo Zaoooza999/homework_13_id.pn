@@ -1,16 +1,13 @@
 import io.qameta.allure.Attachment;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.remote.RemoteWebDriver;
-
 import java.nio.charset.StandardCharsets;
-
 import static com.codeborne.selenide.Selenide.getWebDriverLogs;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.openqa.selenium.logging.LogType.BROWSER;
 
 public class Attach {
-    @Attachment(value = "{attachName}", type = "image/png")
+    @Attachment(value = "Screenshot", type = "image/png")
     public static byte[] attachScreenshot() {
         return ((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.BYTES);
     }
@@ -30,19 +27,5 @@ public class Attach {
                 "Browser console logs",
                 String.join("\n", getWebDriverLogs(BROWSER))
         );
-    }
-    @Attachment(value = "Video", type = "text/html", fileExtension = ".html")
-    public static String addVideo() {
-        return "<html><body><video width='100%' height='100%' controls autoplay><source src='"
-                + getVideoUrl(getSessionId())
-                + "' type='video/mp4'></video></body></html>";
-    }
-
-    public static String getVideoUrl(String sessionId) {
-        return  "https://selenoid.autotests.cloud/video/" + sessionId + ".mp4";
-    }
-
-    public static String getSessionId(){
-        return ((RemoteWebDriver) getWebDriver()).getSessionId().toString();
     }
 }
