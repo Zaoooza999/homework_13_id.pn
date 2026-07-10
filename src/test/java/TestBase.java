@@ -15,7 +15,7 @@ public class TestBase {
         Configuration.pageLoadStrategy = "eager";
         Configuration.browserSize = "1920x1080";
         Configuration.baseUrl = "https://new.pn.ru/";
-        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/#";
+        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/#/wd/hub";
         Configuration.browser = "chrome";
         Configuration.browserVersion = "148.0";
         DesiredCapabilities capabilities = new DesiredCapabilities();
