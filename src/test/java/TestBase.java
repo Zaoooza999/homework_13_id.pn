@@ -15,9 +15,9 @@ public class TestBase {
         Configuration.pageLoadStrategy = "eager";
         Configuration.browserSize = "1920x1080";
         Configuration.baseUrl = "https://new.pn.ru/";
-        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
+        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/#";
         Configuration.browser = "chrome";
-        Configuration.browserVersion = "128.0";
+        Configuration.browserVersion = "148.0";
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
                 "enableVNC", true,
