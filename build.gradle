@@ -16,7 +16,6 @@ dependencies {
             'org.junit.jupiter:junit-jupiter:6.0.3',
             'org.slf4j:slf4j-simple:2.0.17',
             'com.github.javafaker:javafaker:1.0.2',
-            'io.qameta.allure:allure-selenide:2.33.0',
             'io.qameta.allure:allure-selenide:2.35.3'
     )
 }
@@ -26,7 +25,6 @@ allure {
         version.set("2.44.0") //версия Allure Report
     }
 }
-
 
 tasks.withType(Test) {
     useJUnitPlatform()
