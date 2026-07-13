@@ -57,13 +57,13 @@ public class Components {
 
     @Step("Нажать найти")
     public Components clickSearch() {
-        searchButton.click();
+        searchButton.should(appear).click();
         return this;
     }
 
     @Step("Нажать Все фильтры")
     public Components clickAllFilters() {
-        allFilters.click();
+        allFilters.should(appear).click();
         return this;
     }
 
