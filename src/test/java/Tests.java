@@ -1,18 +1,24 @@
+import Pages.Buildings;
+import Pages.MainPage;
+import Pages.SearchResults;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import static io.qameta.allure.Allure.step;
 
 public class Tests extends TestBase {
-    Components components = new Components();
+    Buildings buildings = new Buildings();
+    MainPage mainPage = new MainPage();
+    SearchResults searchResults = new SearchResults();
 
     @DisplayName("Поиск по параметрам")
     @Test
     void searchByParameters() {
-        components.openPage()
+        mainPage.openPage()
                 .clickSearch()
                 .clickAllFilters();
         step("Установить параметры поиска", () -> {
-            components.checkPurchaseChosen()
+            buildings.checkPurchaseChosen()
                     .checkNewBuildingsChosen()
                     .chooseQuantityOfRooms("2к")
                     .chooseQuantityOfRooms("3к")
@@ -25,9 +31,10 @@ public class Tests extends TestBase {
                     .setOptionsOfFloors("Не последний")
                     .setOptionsOfFloors("Не первый");
         });
-        components.submitSearch();
+        buildings.submitSearch()
+                .checkSearchResultPageOpen();
         step("Проверить результат поиска", () -> {
-            components.checkPurchaseChosen()
+            searchResults.checkPurchaseChosen()
                     .checkNewBuildingsChosen()
                     .checkQuantityOfRooms("2к")
                     .checkQuantityOfRooms("3к")
@@ -45,7 +52,7 @@ public class Tests extends TestBase {
     @DisplayName("Использование быстрого фильтра метро")
     @Test
     void quickFilterTest() {
-        components.openPage()
+        mainPage.openPage()
                 .chooseQuickFilterMetro("begovaya")
                 .checkTextSelectedFilters("Беговая")
                 .checkSubwayNameInCards("Беговая");
@@ -54,31 +61,35 @@ public class Tests extends TestBase {
     @DisplayName("Добавление в избранное")
     @Test
     void addToFavorites() {
-        components.openPage()
-                .chooseResaleApartments()
-                .saveResaleTitle()
-                .addResaleToFavorites()
+        mainPage.openPage()
+                .chooseResaleApartments();
+        String expectedTitle = mainPage.getResaleTitle();
+        mainPage.addResaleToFavorites()
                 .openFavorites()
-                .checkFavoritesResaleFirstCardTitle();
+                .checkFavoritesPageOpen()
+                .checkFavoritesResaleFirstCardTitle(expectedTitle);
     }
 
     @DisplayName("Переход в контакты")
     @Test
     void redirectToContacts() {
-        components.openPage()
+        mainPage.openPage()
                 .clickContacts()
+                .heckContactsPageOpen()
                 .checkNumberEmailMap("+7 (812) ", "info@pn.ru");
-
     }
 
     @DisplayName("Добавление в сравнение")
     @Test
     void addToComparison() {
-        components.openPage()
-                .saveNewBuildsCardTitleByIndex(0, 1)
-                .addNewBuildsToComparison(0)
+        mainPage.openPage();
+        String expectedTitle1 = mainPage.getNewBuildsCardTitleByIndex(0);
+        String expectedTitle2 = mainPage.getNewBuildsCardTitleByIndex(1);
+        mainPage.addNewBuildsToComparison(0)
                 .addNewBuildsToComparison(1)
                 .openComparison()
-                .checkNewBuildCardTitleInComparison();
+                .checkComparisonPageOpen()
+                .checkNewBuildCardTitleInComparison(0, expectedTitle1)
+                .checkNewBuildCardTitleInComparison(1, expectedTitle2);
     }
 }
