@@ -1,9 +1,9 @@
-package Pages;
+package pages;
 
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 
-import static Pages.Components.newBuildsCards;
+import static pages.Components.newBuildsCards;
 import static com.codeborne.selenide.Condition.appear;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;

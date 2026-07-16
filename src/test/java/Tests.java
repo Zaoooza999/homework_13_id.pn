@@ -1,6 +1,6 @@
-import Pages.Buildings;
-import Pages.MainPage;
-import Pages.SearchResults;
+import pages.Buildings;
+import pages.MainPage;
+import pages.SearchResults;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
