@@ -31,13 +31,17 @@ public class MainPage {
     @Step("Нажать найти")
     public Buildings clickSearch() {
         searchButton.should(appear).click();
-        return new Buildings();
+        Buildings buildings = new Buildings();
+        buildings.checkBuildingsPageOpen();
+        return buildings;
     }
 
     @Step("Выбрать быстрый фильтр метро")
     public SearchResults chooseQuickFilterMetro(String value) {
         $("[href='/buildings/search/params/metro_" + value + "']").click();
-        return new SearchResults();
+        SearchResults searchResults = new SearchResults();
+        searchResults.checkSearchResultPageOpen();
+        return searchResults;
     }
 
     @Step("Выбрать вторичку")
@@ -71,18 +75,24 @@ public class MainPage {
     @Step("Открыть избранное")
     public Favorites openFavorites() {
         favoritesButton.click();
-        return new Favorites();
+        Favorites favorites = new Favorites();
+        favorites.checkFavoritesPageOpen();
+        return favorites;
     }
 
     @Step("Нажать контакты")
     public Contacts clickContacts() {
         contactsButton.click();
-        return new Contacts();
+        Contacts contacts = new Contacts();
+        contacts.checkContactsPageOpen();
+        return contacts;
     }
 
     @Step("Открыть сравнение")
     public Comparison openComparison() {
         comparisonButton.click();
-        return new Comparison();
+        Comparison comparison = new Comparison();
+        comparison.checkComparisonPageOpen();
+        return comparison;
     }
 }

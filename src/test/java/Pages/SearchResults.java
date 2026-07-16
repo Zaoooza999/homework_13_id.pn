@@ -5,6 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 
+import static Pages.Components.pageTitle;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.withText;
@@ -14,8 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SearchResults {
 
-    private final SelenideElement searchResultPageTitle = $("h1.RealEstate__title.RealEstate__title--desktop"),
-            rangeOfCostInFiltersSelector = $("[name='rangePrice']").parent(),
+    private final SelenideElement rangeOfCostInFiltersSelector = $("[name='rangePrice']").parent(),
             tagsOfSelectedFilters = $(".SelectedFilters__tags"),
             quantityOfRooms = $(".FiltersSection__field--room");
 
@@ -24,7 +24,7 @@ public class SearchResults {
     Components components = new Components();
 
     public SearchResults checkSearchResultPageOpen() {
-        searchResultPageTitle.shouldHave(text("Квартиры в новостройке"));
+        $(pageTitle).shouldHave(text("Квартиры в новостройке"));
         return this;
     }
 

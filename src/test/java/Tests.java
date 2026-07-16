@@ -7,16 +7,13 @@ import org.junit.jupiter.api.Test;
 import static io.qameta.allure.Allure.step;
 
 public class Tests extends TestBase {
-    Buildings buildings = new Buildings();
     MainPage mainPage = new MainPage();
-    SearchResults searchResults = new SearchResults();
 
     @DisplayName("Поиск по параметрам")
     @Test
     void searchByParameters() {
-        mainPage.openPage()
-                .clickSearch()
-                .clickAllFilters();
+        Buildings buildings = mainPage.openPage().clickSearch();
+        buildings.clickAllFilters();
         step("Установить параметры поиска", () -> {
             buildings.checkPurchaseChosen()
                     .checkNewBuildingsChosen()
@@ -31,8 +28,7 @@ public class Tests extends TestBase {
                     .setOptionsOfFloors("Не последний")
                     .setOptionsOfFloors("Не первый");
         });
-        buildings.submitSearch()
-                .checkSearchResultPageOpen();
+        SearchResults searchResults = buildings.submitSearch();
         step("Проверить результат поиска", () -> {
             searchResults.checkPurchaseChosen()
                     .checkNewBuildingsChosen()
@@ -66,7 +62,6 @@ public class Tests extends TestBase {
         String expectedTitle = mainPage.getResaleTitle();
         mainPage.addResaleToFavorites()
                 .openFavorites()
-                .checkFavoritesPageOpen()
                 .checkFavoritesResaleFirstCardTitle(expectedTitle);
     }
 
@@ -75,7 +70,6 @@ public class Tests extends TestBase {
     void redirectToContacts() {
         mainPage.openPage()
                 .clickContacts()
-                .heckContactsPageOpen()
                 .checkNumberEmailMap("+7 (812) ", "info@pn.ru");
     }
 
@@ -88,7 +82,6 @@ public class Tests extends TestBase {
         mainPage.addNewBuildsToComparison(0)
                 .addNewBuildsToComparison(1)
                 .openComparison()
-                .checkComparisonPageOpen()
                 .checkNewBuildCardTitleInComparison(0, expectedTitle1)
                 .checkNewBuildCardTitleInComparison(1, expectedTitle2);
     }

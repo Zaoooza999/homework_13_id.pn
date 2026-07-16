@@ -13,12 +13,10 @@ public class Contacts {
             contactsEmail = $(".ContactSection__link--email"),
             contactsMap = $(".ContactSection__map_container");
 
-    @Step("Проверить номер, почту и карту")
-    public Contacts heckContactsPageOpen() {
+    public Contacts checkContactsPageOpen() {
         contactsTitle.shouldHave(text("Контакты"));
         return this;
     }
-
 
     @Step("Проверить номер, почту и карту")
     public void checkNumberEmailMap(String number, String email) {

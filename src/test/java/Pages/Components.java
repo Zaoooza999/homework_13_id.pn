@@ -2,13 +2,15 @@ package Pages;
 
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
+
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 
 public class Components {
 
     public static final String newBuildsCards = ".ComplexCard",
-            cardResaleTitle = ".RealEstateCardSkeleton__estate";
+            cardResaleTitle = ".RealEstateCardSkeleton__estate",
+            pageTitle = "h1.RealEstate__title.RealEstate__title--desktop";
 
     private final SelenideElement rentOrBuyInput = $("[title='Купить'] span.SelectInput__text_input"),
             buildingTypeInput = $("[title='Квартиры в новостройке'] span.SelectInput__text_input");

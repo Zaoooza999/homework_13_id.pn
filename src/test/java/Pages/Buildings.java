@@ -2,6 +2,8 @@ package Pages;
 
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
+
+import static Pages.Components.pageTitle;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.*;
@@ -19,14 +21,19 @@ public class Buildings {
             maxAreaInput = $(".FullFormWidget__field--increased_indent .RangeInput__text_input--right"),
             submitButton = $(".Modal__body button[type='submit']");
 
-    @Step("Нажать Все фильтры")
-    public Buildings clickAllFilters() {
-        allFilters.should(appear).click();
+    public Buildings checkBuildingsPageOpen() {
+        $(pageTitle).shouldHave(text("Новостройки в Санкт-Петербурге и Ленинградской области"));
         return this;
     }
 
     public Buildings checkPurchaseChosen() {
         components.checkPurchaseChosen();
+        return this;
+    }
+
+    @Step("Нажать Все фильтры")
+    public Buildings clickAllFilters() {
+        allFilters.should(appear).click();
         return this;
     }
 
@@ -76,7 +83,9 @@ public class Buildings {
     @Step("Указать диапазон площади")
     public Buildings setArea(int min, int max) {
         minAreaInput.setValue(String.valueOf(min));
+        // Обнуляем MAX поле, чтобы UI переключил множитель с "тыс. кв.м" на "кв.м"
         maxAreaInput.setValue("0");
+        // Ждем, пока UI перерисуется и синхронизирует поле с минимальным значением
         maxAreaInput.shouldHave(value(String.valueOf(min)));
         maxAreaInput.setValue(String.valueOf(max));
         return this;
@@ -90,9 +99,11 @@ public class Buildings {
 
     @Step("Завершить поиск")
     public SearchResults submitSearch() {
-        String submitButtonText = submitButton.getText();
+        String submitButtonText = submitButton.shouldBe(visible).getText();
         submitButton.shouldNotHave(exactText(submitButtonText));
-        submitButton.shouldBe(enabled).click();
-        return new SearchResults();
+        submitButton.shouldBe(visible, enabled).click();
+        SearchResults searchResults = new SearchResults();
+        searchResults.checkSearchResultPageOpen();
+        return searchResults;
     }
 }
